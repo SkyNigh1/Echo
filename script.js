@@ -15,8 +15,22 @@ class ChatBot {
         this.progressFill = document.getElementById('progressFill');
         this.progressText = document.getElementById('progressText');
         
+        // Calendar elements
+        this.clock = document.getElementById('clock');
+        this.date = document.getElementById('date');
+        this.calendarMonthYear = document.getElementById('calendarMonthYear');
+        this.calendarGrid = document.getElementById('calendarGrid');
+        this.prevMonth = document.getElementById('prevMonth');
+        this.nextMonth = document.getElementById('nextMonth');
+        
+        this.currentDate = new Date();
+        this.currentMonth = this.currentDate.getMonth();
+        this.currentYear = this.currentDate.getFullYear();
+        
         this.initializeEvents();
         this.initializeModel();
+        this.initializeClock();
+        this.initializeCalendar();
     }
 
     initializeEvents() {
@@ -33,6 +47,85 @@ class ChatBot {
             this.chatInput.style.height = 'auto';
             this.chatInput.style.height = Math.min(this.chatInput.scrollHeight, 120) + 'px';
         });
+
+        // Calendar navigation
+        this.prevMonth.addEventListener('click', () => this.changeMonth(-1));
+        this.nextMonth.addEventListener('click', () => this.changeMonth(1));
+    }
+
+    initializeClock() {
+        const updateClock = () => {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            this.clock.textContent = `${hours}:${minutes}:${seconds}`;
+            
+            const options = { day: 'numeric', month: 'long', year: 'numeric' };
+            this.date.textContent = now.toLocaleDateString('fr-FR', options);
+        };
+        updateClock();
+        setInterval(updateClock, 1000);
+    }
+
+    initializeCalendar() {
+        this.renderCalendar();
+    }
+
+    renderCalendar() {
+        const firstDay = new Date(this.currentYear, this.currentMonth, 1);
+        const lastDay = new Date(this.currentYear, this.currentMonth + 1, 0);
+        const startDay = firstDay.getDay();
+        const daysInMonth = lastDay.getDate();
+        const today = new Date();
+        
+        // Update month/year display
+        const options = { month: 'long', year: 'numeric' };
+        this.calendarMonthYear.textContent = firstDay.toLocaleDateString('fr-FR', options);
+
+        // Clear previous calendar
+        this.calendarGrid.innerHTML = '';
+
+        // Add day labels
+        const days = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
+        days.forEach(day => {
+            const dayLabel = document.createElement('div');
+            dayLabel.className = 'calendar-day-label';
+            dayLabel.textContent = day;
+            this.calendarGrid.appendChild(dayLabel);
+        });
+
+        // Add empty cells for days before the first day
+        for (let i = 0; i < (startDay === 0 ? 6 : startDay - 1); i++) {
+            const emptyCell = document.createElement('div');
+            emptyCell.className = 'calendar-day empty';
+            this.calendarGrid.appendChild(emptyCell);
+        }
+
+        // Add days
+        for (let i = 1; i <= daysInMonth; i++) {
+            const dayCell = document.createElement('div');
+            dayCell.className = 'calendar-day';
+            dayCell.textContent = i;
+            if (i === today.getDate() && 
+                this.currentMonth === today.getMonth() && 
+                this.currentYear === today.getFullYear()) {
+                dayCell.classList.add('current-day');
+            }
+            this.calendarGrid.appendChild(dayCell);
+        }
+    }
+
+    changeMonth(direction) {
+        this.currentMonth += direction;
+        if (this.currentMonth < 0) {
+            this.currentMonth = 11;
+            this.currentYear--;
+        } else if (this.currentMonth > 11) {
+            this.currentMonth = 0;
+            this.currentYear++;
+        }
+        this.renderCalendar();
     }
 
     async initializeModel() {

@@ -34,10 +34,9 @@ body::before {
     border-radius: 24px;
     box-shadow: 0 32px 64px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
     width: 90%;
-    max-width: 900px;
+    max-width: 1200px;
     height: 85vh;
     display: flex;
-    flex-direction: column;
     overflow: hidden;
     position: relative;
     z-index: 1;
@@ -53,6 +52,123 @@ body::before {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+.sidebar {
+    width: 300px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.clock-container {
+    text-align: center;
+}
+
+.clock {
+    font-size: 48px;
+    font-weight: 300;
+    color: white;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.date {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    text-transform: capitalize;
+}
+
+.calendar-container {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.calendar-header button {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    color: white;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.calendar-header button:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(1.05);
+}
+
+.calendar-header button:active {
+    transform: scale(0.95);
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    text-align: center;
+}
+
+.calendar-day-label {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 500;
+    padding: 8px 0;
+}
+
+.calendar-day {
+    font-size: 14px;
+    color: white;
+    padding: 8px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.calendar-day.empty {
+    background: none;
+}
+
+.calendar-day:not(.empty):hover {
+    background: rgba(255, 255, 255, 0.15);
+    cursor: pointer;
+}
+
+.calendar-day.current-day {
+    background: linear-gradient(90deg, #6bcf7f, #4ecdc4);
+    font-weight: 600;
+}
+
+.chat-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .chat-header {
@@ -375,6 +491,45 @@ body::before {
         width: 95%;
         height: 90vh;
         border-radius: 20px;
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 16px;
+    }
+    
+    .clock {
+        font-size: 36px;
+        padding: 12px;
+    }
+    
+    .date {
+        font-size: 12px;
+    }
+    
+    .calendar-container {
+        padding: 12px;
+    }
+    
+    .calendar-header {
+        font-size: 14px;
+    }
+    
+    .calendar-header button {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .calendar-day-label {
+        font-size: 10px;
+    }
+    
+    .calendar-day {
+        font-size: 12px;
+        padding: 6px;
     }
     
     .message-content {

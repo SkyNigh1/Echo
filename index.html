@@ -3,30 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatbot WebLLM</title>
+    <title>Assistant IA</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script type="module" src="script.js"></script>
 </head>
 <body>
     <div class="chat-container">
-        <div class="chat-header">
-            <div class="header-content">
-                <div class="bot-avatar">
-                    <div class="avatar-inner">🤖</div>
+        <div class="sidebar">
+            <div class="clock-container">
+                <div class="clock" id="clock">00:00:00</div>
+                <div class="date" id="date">1er janvier 2025</div>
+            </div>
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <button id="prevMonth">&larr;</button>
+                    <span id="calendarMonthYear">Octobre 2025</span>
+                    <button id="nextMonth">&rarr;</button>
                 </div>
-                <div class="header-info">
-                    <h1>Assistant IA</h1>
-                    <div class="status" id="status">
-                        <div class="status-dot"></div>
-                        <span>Initialisation...</span>
-                    </div>
+                <div class="calendar-grid" id="calendarGrid">
+                    <!-- Calendar days will be populated by JavaScript -->
                 </div>
             </div>
         </div>
-        
-        <div class="chat-messages" id="chatMessages">
+        <div class="chat-content">
+            <div class="chat-header">
+                <div class="header-content">
+                    <div class="bot-avatar">
+                        <div class="avatar-inner">🤖</div>
+                    </div>
+                    <div class="header-info">
+                        <h1>Assistant IA</h1>
+                        <div class="status">
+                            <div class="status-dot"></div>
+                            <span>Initialisation...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-messages" id="chatMessages"></div>
             <div class="loading-indicator" id="loadingIndicator">
                 <div class="loading-content">
                     <div class="loading-spinner"></div>
@@ -37,20 +51,18 @@
                     <div class="progress-text" id="progressText">0%</div>
                 </div>
             </div>
-        </div>
-        
-        <div class="chat-input-container">
-            <div class="input-wrapper">
-                <input type="text" id="chatInput" class="chat-input" placeholder="Tapez votre message..." disabled>
-                <button id="sendButton" class="send-button" disabled>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
-                    </svg>
-                </button>
+            <div class="chat-input-container">
+                <div class="input-wrapper">
+                    <textarea id="chatInput" placeholder="Posez votre question..." disabled></textarea>
+                    <button id="sendButton" disabled>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 2L11 13" />
+                            <path d="M22 2L15 22L9 13L2 13L22 2Z" />
+                        </svg>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-
-    <script type="module" src="script.js"></script>
 </body>
 </html>
