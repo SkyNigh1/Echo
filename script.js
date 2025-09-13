@@ -41,7 +41,7 @@ class ChatBot {
             this.loadingIndicator.style.display = 'block';
 
             this.engine = await CreateMLCEngine(
-                "TinyLlama-1.1B-Chat-v0.4-q4f16_1-MLC", // Plus léger et rapide
+                "Qwen2.5-0.5B-Instruct-q4f16_1-MLC", // Même modèle mais quantification plus légère
                 {
                     initProgressCallback: (progress) => {
                         const percentage = Math.round(progress.progress * 100);
@@ -210,7 +210,7 @@ class ChatBot {
 
         // Effet de frappe
         let index = 0;
-        const typeSpeed = 30; // ms entre chaque caractère
+        const typeSpeed = 60; // ms entre chaque caractère (plus rapide = moins de calculs)
         
         const typeWriter = () => {
             if (index < content.length) {
