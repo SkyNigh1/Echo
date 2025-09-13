@@ -41,7 +41,7 @@ class ChatBot {
             this.loadingIndicator.style.display = 'block';
 
             this.engine = await CreateMLCEngine(
-                "Qwen2.5-0.5B-Instruct-q4f32_1-MLC",
+                "TinyLlama-1.1B-Chat-v0.4-q4f16_1-MLC", // Plus léger et rapide
                 {
                     initProgressCallback: (progress) => {
                         const percentage = Math.round(progress.progress * 100);
