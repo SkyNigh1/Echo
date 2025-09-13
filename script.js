@@ -1,4 +1,5 @@
 import { CreateMLCEngine } from "https://esm.run/@mlc-ai/web-llm";
+import { marked } from "https://cdn.jsdelivr.net/npm/marked@4.0.18/lib/marked.esm.js";
 
 class ClockCalendar {
     constructor() {
@@ -234,7 +235,7 @@ class ChatBot {
                 messages: [
                     { 
                         role: "system", 
-                        content: "Tu es un assistant IA serviable et amical. Réponds en français de manière naturelle, engageante et avec de l'empathie. Utilise des emojis quand c'est approprié pour rendre la conversation plus vivante." 
+                        content: "Tu es un assistant IA serviable et amical. Réponds en français de manière naturelle, engageante et avec de l'empathie. Utilise des emojis quand c'est approprié pour rendre la conversation plus vivante. Si approprié, utilise le format Markdown pour structurer tes réponses (par exemple, listes, titres, gras, italique)." 
                     },
                     { role: "user", content: message }
                 ],
@@ -246,7 +247,7 @@ class ChatBot {
             
             const assistantMessage = response.choices[0].message.content;
             
-            // Animation de la réponse progressive
+            // Animation de la réponse progressive avec Markdown
             this.addMessageWithTypingEffect('assistant', assistantMessage);
             
         } catch (error) {
@@ -292,7 +293,7 @@ class ChatBot {
         messageDiv.className = `message ${role}`;
         
         const messageContent = document.createElement('div');
-        messageContent.className = 'message-content';
+        messageContent.className = 'message-content markdown-content';
         
         messageDiv.appendChild(messageContent);
         this.chatMessages.appendChild(messageDiv);
@@ -307,16 +308,43 @@ class ChatBot {
             messageDiv.style.transform = 'translateY(0)';
         }, 50);
 
-        // Effet de frappe
+        // Parse Markdown
+        let processedContent = content;
+        
+        // Special handling for numbered lists to add extra line breaks
+        processedContent = processedContent.replace(/(\d+\.\s+[^\n]*)/g, (match) => {
+            return `\n${match}\n`;
+        });
+        
+        // Convert Markdown to HTML
+        const htmlContent = marked.parse(processedContent, {
+            breaks: true,
+            gfm: true
+        });
+        
+        // Typing effect for HTML content
         let index = 0;
         const typeSpeed = 30; // ms entre chaque caractère
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = htmlContent;
+        const textContent = tempDiv.textContent; // Extract plain text for typing effect
         
         const typeWriter = () => {
-            if (index < content.length) {
-                messageContent.textContent += content.charAt(index);
+            if (index < textContent.length) {
+                // Update text content progressively
+                const currentText = textContent.slice(0, index + 1);
+                tempDiv.textContent = currentText;
+                messageContent.innerHTML = marked.parse(processedContent.slice(0, currentText.length), {
+                    breaks: true,
+                    gfm: true
+                });
                 index++;
                 this.smoothScrollToBottom();
                 setTimeout(typeWriter, typeSpeed);
+            } else {
+                // Set final HTML content
+                messageContent.innerHTML = htmlContent;
+                this.smoothScrollToBottom();
             }
         };
         
