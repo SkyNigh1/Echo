@@ -1,21 +1,7 @@
 import { CreateMLCEngine } from "https://esm.run/@mlc-ai/web-llm";
 
-class ChatBot {
+class ClockCalendar {
     constructor() {
-        this.engine = null;
-        this.isInitialized = false;
-        this.isGenerating = false;
-        this.typingIndicator = null;
-        
-        this.chatMessages = document.getElementById('chatMessages');
-        this.chatInput = document.getElementById('chatInput');
-        this.sendButton = document.getElementById('sendButton');
-        this.status = document.getElementById('status');
-        this.loadingIndicator = document.getElementById('loadingIndicator');
-        this.progressFill = document.getElementById('progressFill');
-        this.progressText = document.getElementById('progressText');
-        
-        // Calendar elements
         this.clock = document.getElementById('clock');
         this.date = document.getElementById('date');
         this.calendarMonthYear = document.getElementById('calendarMonthYear');
@@ -28,27 +14,11 @@ class ChatBot {
         this.currentYear = this.currentDate.getFullYear();
         
         this.initializeEvents();
-        this.initializeModel();
         this.initializeClock();
         this.initializeCalendar();
     }
 
     initializeEvents() {
-        this.sendButton.addEventListener('click', () => this.sendMessage());
-        this.chatInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-                this.sendMessage();
-            }
-        });
-
-        // Auto-resize input height
-        this.chatInput.addEventListener('input', () => {
-            this.chatInput.style.height = 'auto';
-            this.chatInput.style.height = Math.min(this.chatInput.scrollHeight, 120) + 'px';
-        });
-
-        // Calendar navigation
         this.prevMonth.addEventListener('click', () => this.changeMonth(-1));
         this.nextMonth.addEventListener('click', () => this.changeMonth(1));
     }
@@ -126,6 +96,42 @@ class ChatBot {
             this.currentYear++;
         }
         this.renderCalendar();
+    }
+}
+
+class ChatBot {
+    constructor() {
+        this.engine = null;
+        this.isInitialized = false;
+        this.isGenerating = false;
+        this.typingIndicator = null;
+        
+        this.chatMessages = document.getElementById('chatMessages');
+        this.chatInput = document.getElementById('chatInput');
+        this.sendButton = document.getElementById('sendButton');
+        this.status = document.getElementById('status');
+        this.loadingIndicator = document.getElementById('loadingIndicator');
+        this.progressFill = document.getElementById('progressFill');
+        this.progressText = document.getElementById('progressText');
+        
+        this.initializeEvents();
+        this.initializeModel();
+    }
+
+    initializeEvents() {
+        this.sendButton.addEventListener('click', () => this.sendMessage());
+        this.chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                this.sendMessage();
+            }
+        });
+
+        // Auto-resize input height
+        this.chatInput.addEventListener('input', () => {
+            this.chatInput.style.height = 'auto';
+            this.chatInput.style.height = Math.min(this.chatInput.scrollHeight, 120) + 'px';
+        });
     }
 
     async initializeModel() {
@@ -381,9 +387,11 @@ if (checkWebGPUSupport()) {
     // Attendre que le DOM soit chargé
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => {
+            new ClockCalendar();
             new ChatBot();
         });
     } else {
+        new ClockCalendar();
         new ChatBot();
     }
 }
