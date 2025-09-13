@@ -163,6 +163,8 @@ body::before {
 
 .chat-container {
     background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 24px;
     box-shadow: 0 32px 64px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
@@ -174,6 +176,7 @@ body::before {
 
 .chat-header {
     background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     padding: 24px;
     border-top-left-radius: 24px;
@@ -262,7 +265,6 @@ body::before {
 .chat-messages.centered {
     justify-content: center;
     align-items: center;
-    position: relative;
 }
 
 .chat-messages::-webkit-scrollbar {
@@ -294,27 +296,21 @@ body::before {
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: relative;
 }
 
 .chat-messages.centered .connect-button {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    margin: auto;
 }
 
 .connect-button:hover {
     background: linear-gradient(90deg, #7fdf8f, #5eddd4);
-    transform: translate(-50%, -50%) scale(1.05);
+    transform: scale(1.05);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
 }
 
 .connect-button:active {
-    transform: translate(-50%, -50%) scale(0.95);
+    transform: scale(0.95);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -329,6 +325,7 @@ body::before {
 
 .loading-content {
     background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
     border-radius: 16px;
     padding: 32px;
     border: 1px solid rgba(255, 255, 255, 0.15);
@@ -404,12 +401,14 @@ body::before {
 
 .message.user .message-content {
     background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-bottom-right-radius: 8px;
 }
 
 .message.assistant .message-content {
     background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-bottom-left-radius: 8px;
 }
@@ -433,8 +432,8 @@ body::before {
 .markdown-content h2 { font-size: 20px; }
 .markdown-content h3 { font-size: 18px; }
 .markdown-content h4 { font-size: 16px; }
-.markdown-content h5 { font-size: 12px; }
-.markdown-content h6 { font-size: 10px; }
+.markdown-content h5 { font-size: 14px; }
+.markdown-content h6 { font-size: 12px; }
 
 .markdown-content p {
     margin: 8px 0;
@@ -502,6 +501,7 @@ body::before {
     gap: 4px;
     padding: 16px 20px;
     background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 20px;
     border-bottom-left-radius: 8px;
@@ -534,6 +534,7 @@ body::before {
 .chat-input-container {
     padding: 16px 24px;
     background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     border-bottom-left-radius: 24px;
     border-bottom-right-radius: 24px;
@@ -547,6 +548,7 @@ body::before {
     align-items: flex-end;
     gap: 12px;
     background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 16px;
     padding: 12px;
@@ -601,6 +603,7 @@ body::before {
 
 .send-button {
     background: rgba(255, 255, 255, 0.15) !important;
+    backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.2) !important;
     border-radius: 50% !important;
     width: 44px;
@@ -728,25 +731,6 @@ body::before {
     .connect-button {
         padding: 12px 24px;
         font-size: 16px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-    
-    .chat-messages.centered .connect-button {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-    
-    .connect-button:hover {
-        transform: translate(-50%, -50%) scale(1.05);
-    }
-    
-    .connect-button:active {
-        transform: translate(-50%, -50%) scale(0.95);
     }
     
     .chat-input-container {
