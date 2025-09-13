@@ -41,7 +41,7 @@ class ChatBot {
             this.loadingIndicator.style.display = 'block';
 
             this.engine = await CreateMLCEngine(
-                "Qwen2.5-0.5B-Instruct-q4f32_1-MLC", // Version f32 compatible
+                "Qwen2.5-0.5B-Instruct-q4f32_1-MLC",
                 {
                     initProgressCallback: (progress) => {
                         const percentage = Math.round(progress.progress * 100);
@@ -210,7 +210,7 @@ class ChatBot {
 
         // Effet de frappe
         let index = 0;
-        const typeSpeed = 60; // ms entre chaque caractère (plus rapide = moins de calculs)
+        const typeSpeed = 30; // ms entre chaque caractère
         
         const typeWriter = () => {
             if (index < content.length) {

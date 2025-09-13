@@ -371,35 +371,9 @@ body::before {
 }
 
 @media (max-width: 768px) {
-    .main-container {
-        flex-direction: column;
-        height: auto;
-        max-height: 95vh;
-    }
-    
-    .sidebar {
-        width: 100%;
-        flex-direction: row;
-        gap: 16px;
-    }
-    
-    .time-section {
-        flex: 1;
-        padding: 16px;
-    }
-    
-    .clock {
-        font-size: 2rem;
-    }
-    
-    .calendar-section {
-        flex: 2;
-        padding: 16px;
-    }
-    
     .chat-container {
-        flex: 1;
-        min-height: 400px;
+        width: 95%;
+        height: 90vh;
         border-radius: 20px;
     }
     
@@ -431,4 +405,4 @@ body::before {
     .chat-input-container {
         padding: 16px;
     }
-}   
+}
