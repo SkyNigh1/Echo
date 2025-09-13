@@ -33,14 +33,14 @@
     </div>
 
     <script type="text/javascript">
-        SDK.applicationId = "8983130909301834963 "; // Remplace par ton Application ID
+        SDK.applicationId = "8983130909301834963"; // Remplace par ton Application ID
         var sdk = new SDKConnection();
         var web = new WebChatbotListener();
         web.connection = sdk;
         web.instance = "58927128"; // Remplace par ton Bot ID
         web.instanceName = "Echo"; // Remplace par le nom de ton bot
         web.userName = "Utilisateur";
-        web.speak = true;
+        web.speak = false;
         web.greet();
     </script>
 </body>
