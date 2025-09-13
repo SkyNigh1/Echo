@@ -241,9 +241,8 @@
                     this.updateStatus('Chargement du modèle...', 'loading');
                     this.loadingIndicator.style.display = 'block';
 
-                    // Utiliser Llama-3.2-3B qui est disponible et performant
                     this.engine = await CreateMLCEngine(
-                        "Llama-3.2-3B-Instruct-q4f32_1",
+                        "Qwen2.5-0.5B-Instruct-q4f32_1-MLC",
                         {
                             initProgressCallback: (progress) => {
                                 const percentage = Math.round(progress.progress * 100);
