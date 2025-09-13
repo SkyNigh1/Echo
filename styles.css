@@ -425,8 +425,8 @@ body::before {
     backdrop-filter: blur(10px);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
 }
 
 .input-wrapper {
@@ -452,12 +452,12 @@ body::before {
 
 .chat-input {
     flex: 1;
-    background: transparent;
-    border: none;
+    background: transparent !important;
+    border: none !important;
     padding: 8px 12px;
     font-size: 16px;
-    color: white;
-    outline: none;
+    color: white !important;
+    outline: none !important;
     font-family: inherit;
     resize: none;
     line-height: 1.5;
@@ -467,7 +467,7 @@ body::before {
 }
 
 .chat-input::placeholder {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.5) !important;
 }
 
 .chat-input::-webkit-scrollbar {
@@ -488,10 +488,10 @@ body::before {
 }
 
 .send-button {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.15) !important;
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 50% !important;
     width: 44px;
     height: 44px;
     cursor: pointer;
@@ -503,8 +503,8 @@ body::before {
 }
 
 .send-button:hover:not(:disabled) {
-    background: rgba(255, 255, 255, 0.25);
-    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.25) !important;
+    border-color: rgba(255, 255, 255, 0.3) !important;
     transform: scale(1.05);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
@@ -515,8 +515,8 @@ body::before {
 }
 
 .send-button:disabled {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-color: rgba(255, 255, 255, 0.15) !important;
     opacity: 0.5;
     cursor: not-allowed;
     transform: none;
@@ -526,13 +526,13 @@ body::before {
 .send-button svg {
     width: 24px;
     height: 24px;
-    stroke: white;
-    fill: none;
+    stroke: white !important;
+    fill: none !important;
     transition: stroke 0.3s ease;
 }
 
 .send-button:hover:not(:disabled) svg {
-    stroke: #6bcf7f;
+    stroke: #6bcf7f !important;
 }
 
 @media (max-width: 768px) {
