@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot BotLibre</title>
+    <script type="text/javascript" src="https://www.botlibre.com/scripts/sdk.js"></script>
+</head>
+<body>
+    <div id="chat-container">
+        <table style="height:150px;width:100%;">
+            <tr style="height:150px;width:100%;">
+                <td height="200" width="200" align="left" valign="top">
+                    <img id="avatar" src="https://www.botlibre.com/avatars/a5018.jpg" style="max-height:200px;max-width:200px;min-width:100px"/>
+                </td>
+                <td valign="top" style="height:200px;width:100%;" align="left">
+                    <div id="scroller" style="height:200px;width:100%;overflow:auto;text-align:left">
+                        <table id="console" style="width:100%;" cellspacing=2></table>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <form class="message" onsubmit="return web.sendMessage();">
+            <table style="width:100%;">
+                <tr style="width:100%;">
+                    <td style="width:100%;"><input id="chat" style="max-width:none" placeholder="Vous dites" type="text" name="input" autofocus x-webkit-speech onFocus="this.select();" onMouseOut="javascript:return false;"/></td>
+                    <td align="left"><input id="send" type="submit" name="submit" value="Envoyer"/><br/></td>
+                </tr>
+            </table>
+            <input title="La parole nécessite un navigateur supportant l'audio HTML5" type="checkbox" name="speak" checked onClick="return web.toggleSpeak();">Parler</input>
+            <a style="float:right;margin:4px" class="menu" onClick="return web.exit();">Déconnexion</a>
+        </form>
+    </div>
+
+    <script type="text/javascript">
+        SDK.applicationId = "8983130909301834963 "; // Remplace par ton Application ID
+        var sdk = new SDKConnection();
+        var web = new WebChatbotListener();
+        web.connection = sdk;
+        web.instance = "58927128"; // Remplace par ton Bot ID
+        web.instanceName = "Echo"; // Remplace par le nom de ton bot
+        web.userName = "Utilisateur";
+        web.speak = true;
+        web.greet();
+    </script>
+</body>
+</html>
