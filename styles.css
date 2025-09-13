@@ -420,47 +420,76 @@ body::before {
 }
 
 .chat-input-container {
-    padding: 24px;
+    padding: 16px 24px;
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .input-wrapper {
     display: flex;
+    align-items: flex-end;
     gap: 12px;
-    align-items: center;
     background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 24px;
-    padding: 8px;
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    padding: 12px;
+    width: 100%;
+    max-width: 800px;
     transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .input-wrapper:focus-within {
     border-color: rgba(255, 255, 255, 0.3);
     background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
 .chat-input {
     flex: 1;
-    background: none;
+    background: transparent;
     border: none;
-    padding: 12px 16px;
+    padding: 8px 12px;
     font-size: 16px;
     color: white;
     outline: none;
     font-family: inherit;
+    resize: none;
+    line-height: 1.5;
+    min-height: 44px;
+    max-height: 120px;
+    overflow-y: auto;
 }
 
 .chat-input::placeholder {
     color: rgba(255, 255, 255, 0.5);
 }
 
+.chat-input::-webkit-scrollbar {
+    width: 4px;
+}
+
+.chat-input::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.chat-input::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+}
+
+.chat-input::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
 .send-button {
     background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 50%;
     width: 44px;
@@ -470,22 +499,40 @@ body::before {
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
-    color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .send-button:hover:not(:disabled) {
     background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.3);
     transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .send-button:active:not(:disabled) {
     transform: scale(0.95);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .send-button:disabled {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.15);
     opacity: 0.5;
     cursor: not-allowed;
     transform: none;
+    box-shadow: none;
+}
+
+.send-button svg {
+    width: 24px;
+    height: 24px;
+    stroke: white;
+    fill: none;
+    transition: stroke 0.3s ease;
+}
+
+.send-button:hover:not(:disabled) svg {
+    stroke: #6bcf7f;
 }
 
 @media (max-width: 768px) {
@@ -566,6 +613,26 @@ body::before {
     }
     
     .chat-input-container {
-        padding: 16px;
+        padding: 12px 16px;
+    }
+    
+    .input-wrapper {
+        padding: 8px;
+        border-radius: 12px;
+    }
+    
+    .chat-input {
+        font-size: 14px;
+        padding: 6px 10px;
+    }
+    
+    .send-button {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .send-button svg {
+        width: 20px;
+        height: 20px;
     }
 }
