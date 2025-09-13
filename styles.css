@@ -256,8 +256,13 @@ body::before {
     padding: 24px;
     position: relative;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.chat-messages.centered {
     justify-content: center;
+    align-items: center;
 }
 
 .chat-messages::-webkit-scrollbar {
@@ -365,34 +370,26 @@ body::before {
 .message {
     margin-bottom: 24px;
     display: flex;
-    align-items: flex-start;
+    width: 100%;
     gap: 12px;
-    animation: messageSlide 0.5s ease-out;
-}
-
-@keyframes messageSlide {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
 }
 
 .message.user {
     justify-content: flex-end;
 }
 
+.message.assistant {
+    justify-content: flex-start;
+}
+
 .message-content {
     max-width: 70%;
     padding: 16px 20px;
     border-radius: 20px;
-    word-wrap: break-word;
     line-height: 1.5;
-    position: relative;
     color: white;
+    word-break: break-word;
+    white-space: normal;
 }
 
 .message.user .message-content {

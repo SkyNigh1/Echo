@@ -50,14 +50,11 @@ class ClockCalendar {
         const daysInMonth = lastDay.getDate();
         const today = new Date();
         
-        // Update month/year display
         const options = { month: 'long', year: 'numeric' };
         this.calendarMonthYear.textContent = firstDay.toLocaleDateString('fr-FR', options);
 
-        // Clear previous calendar
         this.calendarGrid.innerHTML = '';
 
-        // Add day labels
         const days = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
         days.forEach(day => {
             const dayLabel = document.createElement('div');
@@ -66,14 +63,12 @@ class ClockCalendar {
             this.calendarGrid.appendChild(dayLabel);
         });
 
-        // Add empty cells for days before the first day
         for (let i = 0; i < (startDay === 0 ? 6 : startDay - 1); i++) {
             const emptyCell = document.createElement('div');
             emptyCell.className = 'calendar-day empty';
             this.calendarGrid.appendChild(emptyCell);
         }
 
-        // Add days
         for (let i = 1; i <= daysInMonth; i++) {
             const dayCell = document.createElement('div');
             dayCell.className = 'calendar-day';
@@ -130,7 +125,6 @@ class ChatBot {
             }
         });
 
-        // Auto-resize input height
         this.chatInput.addEventListener('input', () => {
             this.chatInput.style.height = 'auto';
             this.chatInput.style.height = Math.min(this.chatInput.scrollHeight, 120) + 'px';
@@ -142,6 +136,7 @@ class ChatBot {
             this.updateStatus('Chargement du modèle...', 'loading');
             this.connectButton.style.display = 'none';
             this.loadingIndicator.style.display = 'block';
+            this.chatMessages.classList.remove('centered');
 
             this.engine = await CreateMLCEngine(
                 "Qwen2.5-0.5B-Instruct-q4f32_1-MLC",
@@ -151,7 +146,6 @@ class ChatBot {
                         this.progressFill.style.width = percentage + '%';
                         this.progressText.textContent = percentage + '%';
                         
-                        // Animation de pulsation pendant le chargement
                         if (percentage < 100) {
                             this.progressFill.style.boxShadow = `0 0 20px rgba(107, 207, 127, 0.5)`;
                         }
@@ -167,7 +161,6 @@ class ChatBot {
             this.sendButton.disabled = false;
             this.chatInput.focus();
             
-            // Message de bienvenue avec animation
             setTimeout(() => {
                 this.addMessage('assistant', '👋 Salut ! Je suis ton assistant IA personnel. Comment puis-je t\'aider aujourd\'hui ?');
             }, 500);
@@ -177,6 +170,7 @@ class ChatBot {
             this.updateStatus('Erreur de connexion', 'error');
             this.loadingIndicator.style.display = 'none';
             this.connectButton.style.display = 'block';
+            this.chatMessages.classList.add('centered');
             this.addMessage('assistant', '❌ Désolé, une erreur s\'est produite lors du chargement. Cliquez sur "Connecter" pour réessayer.');
         }
     }
@@ -214,7 +208,6 @@ class ChatBot {
         const message = this.chatInput.value.trim();
         if (!message) return;
 
-        // Animation du bouton d'envoi
         this.sendButton.style.transform = 'scale(0.9) rotate(45deg)';
         setTimeout(() => {
             this.sendButton.style.transform = '';
@@ -229,11 +222,9 @@ class ChatBot {
         this.chatInput.disabled = true;
         this.updateStatus('En train de réfléchir...', 'loading');
         
-        // Afficher l'indicateur de frappe
         this.showTypingIndicator();
 
         try {
-            // Simuler un délai de réflexion pour l'UX
             await new Promise(resolve => setTimeout(resolve, 800));
 
             const response = await this.engine.chat.completions.create({
@@ -251,8 +242,6 @@ class ChatBot {
             this.hideTypingIndicator();
             
             const assistantMessage = response.choices[0].message.content;
-            
-            // Animation de la réponse progressive avec Markdown
             this.addMessageWithTypingEffect('assistant', assistantMessage);
             
         } catch (error) {
@@ -279,7 +268,6 @@ class ChatBot {
         messageDiv.appendChild(messageContent);
         this.chatMessages.appendChild(messageDiv);
         
-        // Animation d'apparition
         messageDiv.style.opacity = '0';
         messageDiv.style.transform = 'translateY(20px)';
         
@@ -289,7 +277,6 @@ class ChatBot {
             messageDiv.style.transform = 'translateY(0)';
         }, 50);
         
-        // Auto-scroll vers le bas avec animation fluide
         this.smoothScrollToBottom();
     }
 
@@ -303,7 +290,6 @@ class ChatBot {
         messageDiv.appendChild(messageContent);
         this.chatMessages.appendChild(messageDiv);
         
-        // Animation d'apparition
         messageDiv.style.opacity = '0';
         messageDiv.style.transform = 'translateY(20px)';
         
@@ -313,33 +299,26 @@ class ChatBot {
             messageDiv.style.transform = 'translateY(0)';
         }, 50);
 
-        // Parse Markdown
         let processedContent = content;
-        
-        // Special handling for numbered lists to add extra line breaks
         processedContent = processedContent.replace(/(\d+\.\s+[^\n]*)/g, (match) => {
             return `\n${match}\n`;
         });
         
-        // Convert Markdown to HTML
         const htmlContent = marked.parse(processedContent, {
             breaks: true,
             gfm: true
         });
         
-        // Typing effect for HTML content
         let index = 0;
-        const typeSpeed = 30; // ms entre chaque caractère
+        const typeSpeed = 30;
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = htmlContent;
-        const textContent = tempDiv.textContent; // Extract plain text for typing effect
+        const textContent = tempDiv.textContent;
         
         const typeWriter = () => {
             if (index < textContent.length) {
-                // Update text content progressively
                 const currentText = textContent.slice(0, index + 1);
-                tempDiv.textContent = currentText;
-                messageContent.innerHTML = marked.parse(processedContent.slice(0, currentText.length), {
+                messageContent.innerHTML = marked.parse(currentText, {
                     breaks: true,
                     gfm: true
                 });
@@ -347,13 +326,11 @@ class ChatBot {
                 this.smoothScrollToBottom();
                 setTimeout(typeWriter, typeSpeed);
             } else {
-                // Set final HTML content
                 messageContent.innerHTML = htmlContent;
                 this.smoothScrollToBottom();
             }
         };
         
-        // Démarrer l'effet de frappe après l'animation d'apparition
         setTimeout(typeWriter, 300);
     }
 
@@ -365,7 +342,6 @@ class ChatBot {
     }
 }
 
-// Vérifier la compatibilité WebGPU
 function checkWebGPUSupport() {
     if (!navigator.gpu) {
         document.body.innerHTML = `
@@ -415,9 +391,7 @@ function checkWebGPUSupport() {
     return true;
 }
 
-// Initialiser l'application
 if (checkWebGPUSupport()) {
-    // Attendre que le DOM soit chargé
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => {
             new ClockCalendar();
