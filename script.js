@@ -114,12 +114,14 @@ class ChatBot {
         this.loadingIndicator = document.getElementById('loadingIndicator');
         this.progressFill = document.getElementById('progressFill');
         this.progressText = document.getElementById('progressText');
+        this.chatInputContainer = document.getElementById('chatInputContainer');
+        this.connectButton = document.getElementById('connectButton');
         
         this.initializeEvents();
-        this.initializeModel();
     }
 
     initializeEvents() {
+        this.connectButton.addEventListener('click', () => this.initializeModel());
         this.sendButton.addEventListener('click', () => this.sendMessage());
         this.chatInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter' && !e.shiftKey) {
@@ -138,6 +140,7 @@ class ChatBot {
     async initializeModel() {
         try {
             this.updateStatus('Chargement du modèle...', 'loading');
+            this.connectButton.style.display = 'none';
             this.loadingIndicator.style.display = 'block';
 
             this.engine = await CreateMLCEngine(
@@ -158,6 +161,7 @@ class ChatBot {
 
             this.isInitialized = true;
             this.loadingIndicator.style.display = 'none';
+            this.chatInputContainer.style.display = 'flex';
             this.updateStatus('En ligne', 'ready');
             this.chatInput.disabled = false;
             this.sendButton.disabled = false;
@@ -172,7 +176,8 @@ class ChatBot {
             console.error('Erreur d\'initialisation:', error);
             this.updateStatus('Erreur de connexion', 'error');
             this.loadingIndicator.style.display = 'none';
-            this.addMessage('assistant', '❌ Désolé, une erreur s\'est produite lors du chargement. Vérifiez que votre navigateur supporte WebGPU et rechargez la page.');
+            this.connectButton.style.display = 'block';
+            this.addMessage('assistant', '❌ Désolé, une erreur s\'est produite lors du chargement. Cliquez sur "Connecter" pour réessayer.');
         }
     }
 
